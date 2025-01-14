@@ -1,0 +1,6 @@
+Vase, ming, 100, 35, clay
+Statue, egyptian, 150, 13, black
+Painting, Rembrant, 3000, 30, 25, true, true
+Statue, egyptian, 250, 13, black
+Statue, roman, 280, 54, grey
+Painting, Rembrant, 3000, 30, 25, true, true
