@@ -17,6 +17,6 @@ public class PresidentialChair extends CatalogueChair {
     }
 
     private boolean isImported() {
-        return this.imported == "si";
+        return this.imported.equals("si");
     }
 }
