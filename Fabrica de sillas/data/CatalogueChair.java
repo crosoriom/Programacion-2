@@ -1,7 +1,5 @@
 package data;
 
-import java.lang.classfile.instruction.StackInstruction;
-
 public abstract class CatalogueChair implements Chair<CatalogueChair> {
     protected String reference;
     protected float price;
