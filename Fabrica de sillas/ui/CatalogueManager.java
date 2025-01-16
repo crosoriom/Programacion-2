@@ -1,10 +1,14 @@
 package ui;
 
-import java.io.IOException;
+import data.CatalogueChair;
+import data.PresidentialChair;
+import data.ManagerialChair;
+import data.SecretarialChair;
+import data.TandemChair;
+import data.Wheelchair;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import data.CatalogueChair;
 
 public class CatalogueManager {
     private List<CatalogueChair> chairs;
@@ -13,50 +17,97 @@ public class CatalogueManager {
         this.chairs = new ArrayList<>();
     }
 
-    public void loadChairs() {
+    /**
+     * Carga las sillas desde un archivo de texto.
+     * El formato esperado es: tipo, referencia, precio, calificación, (atributos adicionales)
+     */
+    public void loadChairs(String filePath) {
         FileReader fileReader = new FileReader();
-
         try {
-            // Leemos el archivo "sillas.txt" 
-            List<String[]> data = fileReader.readFile("sillas.txt");
+            List<String[]> data = fileReader.readFile(filePath);
             for (String[] row : data) {
-                String reference = row[0];
-                float price = Float.parseFloat(row[1]);
-                float qualification = Float.parseFloat(row[2]);
-                String type = row[3];
-
-                CatalogueChair chair;
-                switch (type) {
-                    case "Managerial":
-                        chair = new ManagerialChair(reference, price, qualification);
-                        break;
-                    case "Presidential":
-                        String imported = row[4];
-                        chair = new PresidentialChair(reference, price, qualification, imported);
-                        break;
-                    case "Secretarial":
-                        chair = new SecretarialChair(reference, price, qualification);
-                        break;
-                    case "Tandem":
-                        int seats = Integer.parseInt(row[4]);
-                        chair = new TandemChair(reference, price, qualification, seats);
-                        break;
-                    case "Wheelchair":
-                        String traction = row[4];
-                        chair = new Wheelchair(reference, price, qualification, traction);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Tipo de silla desconocido: " + type);
+                CatalogueChair chair = parseChair(row);
+                if (chair != null) {
+                    chairs.add(chair);
                 }
-
-                chairs.add(chair);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error al cargar las sillas: " + e.getMessage());
         }
     }
 
+    /**
+     * Agrega una silla al catálogo.
+     */
+    public void addChair(CatalogueChair chair) {
+        if (chair != null) {
+            chairs.add(chair);
+        }
+    }
+
+    /**
+     * Obtiene todas las sillas de una categoría específica.
+     */
+    public List<CatalogueChair> getChairsByCategory(String category) {
+        List<CatalogueChair> result = new ArrayList<>();
+        for (CatalogueChair chair : chairs) {
+            if (chair.getClass().getSimpleName().equalsIgnoreCase(category + "Chair")) {
+                result.add(chair);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Devuelve el estado del catálogo con "Remover" o "Mantener" para cada silla.
+     */
+    public List<String> getCatalogueStatus() {
+        List<String> statusList = new ArrayList<>();
+        for (CatalogueChair chair : chairs) {
+            String status = chair.getReference() + ", " + chair.removeFromCatalogue();
+            statusList.add(status);
+        }
+        return statusList;
+    }
+
+    /**
+     * Lista todas las sillas del catálogo.
+     */
     public List<CatalogueChair> getChairs() {
-        return chairs;
+        return new ArrayList<>(chairs); // Copia para evitar modificaciones directas
+    }
+
+    /**
+     * Convierte una fila del archivo en un objeto de tipo `CatalogueChair`.
+     */
+    private CatalogueChair parseChair(String[] row) {
+        try {
+            String type = row[0].trim();
+            String reference = row[1].trim();
+            float price = Float.parseFloat(row[2].trim());
+            float qualification = Float.parseFloat(row[3].trim());
+
+            switch (type.toLowerCase()) {
+                case "presidential":
+                    String imported = row[4].trim();
+                    return new PresidentialChair(reference, price, qualification, imported);
+                case "managerial":
+                    return new ManagerialChair(reference, price, qualification);
+                case "secretarial":
+                    return new SecretarialChair(reference, price, qualification);
+                case "tandem":
+                    int seats = Integer.parseInt(row[4].trim());
+                    return new TandemChair(reference, price, qualification, seats);
+                case "wheelchair":
+                    String traction = row[4].trim();
+                    return new Wheelchair(reference, price, qualification, traction);
+                default:
+                    System.err.println("Tipo de silla desconocido: " + type);
+                    return null;
+            }
+        } catch (Exception e) {
+            System.err.println("Error al parsear la fila: " + e.getMessage());
+            return null;
+        }
     }
 }

@@ -1,11 +1,7 @@
 package ui;
 
+import data.CatalogueManager;
 import data.CatalogueChair;
-import data.ManagerialChair;
-import data.PresidentialChair;
-import data.SecretarialChair;
-import data.TandemChair;
-import data.Wheelchair;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,148 +13,132 @@ public class UserInterface {
     public UserInterface() {
         catalogueManager = new CatalogueManager();
         scanner = new Scanner(System.in);
-        catalogueManager.loadChairs(); // Carga las sillas desde el archivo al iniciar
     }
 
-    public void displayMainMenu() {
-        while (true) {
-            System.out.println("Fabrica de Sillas----");
-            System.out.println("Para ver sillas por categoría, digite 'c'");
-            System.out.println("Para ver qué sillas salen del catálogo, digite 's'");
-            System.out.println("Para terminar, digite 't'");
-            System.out.print("¿Qué opción desea? ");
-            String option = scanner.nextLine();
+    /**
+     * Inicia la interfaz de usuario, cargando las sillas y mostrando el menú principal.
+     */
+    public void start(String filePath) {
+        // Cargar las sillas desde el archivo
+        catalogueManager.loadChairs(filePath);
 
-            switch (option) {
-                case "c":
-                    displayCategoryMenu();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n--- Fábrica de Sillas ---");
+            System.out.println("1. Ver sillas por categoría");
+            System.out.println("2. Ver qué sillas salen del catálogo");
+            System.out.println("3. Listar todas las sillas");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    showCategoryMenu();
                     break;
-                case "s":
-                    displayCatalogueStatus();
+                case "2":
+                    showCatalogueStatus();
                     break;
-                case "t":
-                    System.out.println("Terminando el programa...");
-                    return;
+                case "3":
+                    listAllChairs();
+                    break;
+                case "4":
+                    running = false;
+                    System.out.println("Saliendo del programa. ¡Hasta luego!");
+                    break;
                 default:
-                    System.out.println("Opción no válida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción no válida. Intente de nuevo.");
             }
         }
     }
 
-    private void displayCategoryMenu() {
-        while (true) {
-            System.out.println("Para ver sillas presidenciales, digite 'p'");
-            System.out.println("Para ver sillas gerenciales, digite 'g'");
-            System.out.println("Para ver sillas secretariales, digite 's'");
-            System.out.println("Para ver sillas tandem, digite 't'");
-            System.out.println("Para ver sillas de ruedas, digite 'r'");
-            System.out.println("Para regresar al menú principal, digite 'r'");
-            System.out.print("¿Qué opción desea? ");
-            String option = scanner.nextLine();
+    /**
+     * Muestra el menú de selección de categoría.
+     */
+    private void showCategoryMenu() {
+        boolean backToMainMenu = false;
 
-            switch (option) {
+        while (!backToMainMenu) {
+            System.out.println("\n--- Ver Sillas por Categoría ---");
+            System.out.println("p. Presidencial");
+            System.out.println("g. Gerencial");
+            System.out.println("s. Secretarial");
+            System.out.println("t. Tandem");
+            System.out.println("r. Ruedas");
+            System.out.println("e. Regresar al menú principal");
+            System.out.print("Seleccione una categoría: ");
+
+            String categoryChoice = scanner.nextLine();
+
+            switch (categoryChoice) {
                 case "p":
-                    displayPresidentialChairs();
+                    displayChairsByCategory("Presidential");
                     break;
                 case "g":
-                    displayManagerialChairs();
+                    displayChairsByCategory("Managerial");
                     break;
                 case "s":
-                    displaySecretarialChairs();
+                    displayChairsByCategory("Secretarial");
                     break;
                 case "t":
-                    displayTandemChairs();
+                    displayChairsByCategory("Tandem");
                     break;
                 case "r":
-                    return; // Regresa al menú principal
-                case "r":
-                    displayWheelchairs();
+                    displayChairsByCategory("Wheelchair");
+                    break;
+                case "e":
+                    backToMainMenu = true;
                     break;
                 default:
-                    System.out.println("Opción no válida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción no válida. Intente de nuevo.");
             }
         }
     }
 
-    private void displayPresidentialChairs() {
-        System.out.println("Sillas Presidenciales:");
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            if (chair instanceof PresidentialChair) {
-                System.out.println("Referencia: " + chair.getReference() +
-                        ", Precio: " + chair.getPrice() +
-                        ", Calificación: " + chair.getQualification());
+    /**
+     * Muestra todas las sillas en una categoría específica.
+     */
+    private void displayChairsByCategory(String category) {
+        List<CatalogueChair> chairs = catalogueManager.getChairsByCategory(category);
+        if (chairs.isEmpty()) {
+            System.out.println("No hay sillas en la categoría " + category + ".");
+        } else {
+            System.out.println("\nSillas en la categoría " + category + ":");
+            for (CatalogueChair chair : chairs) {
+                System.out.println(chair);
             }
         }
     }
 
-    private void displayManagerialChairs() {
-        System.out.println("Sillas Gerenciales:");
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            if (chair instanceof ManagerialChair) {
-                System.out.println("Referencia: " + chair.getReference() +
-                        ", Precio: " + chair.getPrice() +
-                        ", Calificación: " + chair.getQualification());
+    /**
+     * Muestra el estado del catálogo ("Remover" o "Mantener") para cada silla.
+     */
+    private void showCatalogueStatus() {
+        System.out.println("\n--- Estado del Catálogo ---");
+        List<String> statusList = catalogueManager.getCatalogueStatus();
+        if (statusList.isEmpty()) {
+            System.out.println("El catálogo está vacío.");
+        } else {
+            for (String status : statusList) {
+                System.out.println(status);
             }
         }
     }
 
-    private void displaySecretarialChairs() {
-        System.out.println("Sillas Secretariales:");
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            if (chair instanceof SecretarialChair) {
-                System.out.println("Referencia: " + chair.getReference() +
-                        ", Precio: " + chair.getPrice() +
-                        ", Calificación: " + chair.getQualification());
+    /**
+     * Lista todas las sillas del catálogo.
+     */
+    private void listAllChairs() {
+        List<CatalogueChair> chairs = catalogueManager.getChairs();
+        if (chairs.isEmpty()) {
+            System.out.println("El catálogo está vacío.");
+        } else {
+            System.out.println("\n--- Todas las Sillas ---");
+            for (CatalogueChair chair : chairs) {
+                System.out.println(chair);
             }
-        }
-    }
-
-    private void displayTandemChairs() {
-        System.out.println("Sillas Tandem:");
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            if (chair instanceof TandemChair) {
-                System.out.println("Referencia: " + chair.getReference() +
-                        ", Precio: " + chair.getPrice() +
-                        ", Calificación: " + chair.getQualification());
-            }
-        }
-    }
-
-    private void displayWheelchairs() {
-        System.out.println("Sillas de Ruedas:");
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            if (chair instanceof Wheelchair) {
-                System.out.println("Referencia: " + chair.getReference() +
-                        ", Precio: " + chair.getPrice() +
-                        ", Calificación: " + chair.getQualification());
-            }
-        }
-    }
-
-    private void displayCatalogueStatus() {
-        System.out.println("Sillas que deben salir del catálogo:");
-
-        for (CatalogueChair chair : catalogueManager.getChairs()) {
-            String status = "Mantener";
-            if (chair instanceof PresidentialChair) {
-                PresidentialChair presidentialChair = (PresidentialChair) chair;
-                if ((presidentialChair.isImported() && presidentialChair.getQualification() < 3.5) ||
-                        presidentialChair.getPrice() > 400000) {
-                    status = "Remover";
-                }
-            } else if (chair instanceof ManagerialChair) {
-                ManagerialChair managerialChair = (ManagerialChair) chair;
-                if (managerialChair.getQualification() < 4 || managerialChair.getPrice() > 300000) {
-                    status = "Remover";
-                }
-            } else if (chair instanceof SecretarialChair) {
-                SecretarialChair secretarialChair = (SecretarialChair) chair;
-                if (secretarialChair.getQualification() < 3 || secretarialChair.getPrice() > 200000) {
-                    status = "Remover";
-                }
-            }
-
-            System.out.println(chair.getClass().getSimpleName() + ", " + status);
         }
     }
 }
