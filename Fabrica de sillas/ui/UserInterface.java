@@ -1,8 +1,6 @@
 package ui;
 
-import data.CatalogueManager;
 import data.CatalogueChair;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,7 +68,7 @@ public class UserInterface {
             System.out.println("e. Regresar al menú principal");
             System.out.print("Seleccione una categoría: ");
 
-            String categoryChoice = scanner.nextLine();
+            String categoryChoice = scanner.nextLine().toLowerCase(); // Convertir a minúsculas
 
             switch (categoryChoice) {
                 case "p":
@@ -101,13 +99,13 @@ public class UserInterface {
      * Muestra todas las sillas en una categoría específica.
      */
     private void displayChairsByCategory(String category) {
-        List<CatalogueChair> chairs = catalogueManager.getChairsByCategory(category);
+        List<Chair<?>> chairs = catalogueManager.getChairsByCategory(category);
         if (chairs.isEmpty()) {
             System.out.println("No hay sillas en la categoría " + category + ".");
         } else {
             System.out.println("\nSillas en la categoría " + category + ":");
-            for (CatalogueChair chair : chairs) {
-                System.out.println(chair);
+            for (Chair<?> chair : chairs) {
+                System.out.println(chair); // Mostrará el resultado del método toString()
             }
         }
     }
@@ -131,13 +129,13 @@ public class UserInterface {
      * Lista todas las sillas del catálogo.
      */
     private void listAllChairs() {
-        List<CatalogueChair> chairs = catalogueManager.getChairs();
+        List<Chair<?>> chairs = catalogueManager.getChairs();
         if (chairs.isEmpty()) {
             System.out.println("El catálogo está vacío.");
         } else {
             System.out.println("\n--- Todas las Sillas ---");
-            for (CatalogueChair chair : chairs) {
-                System.out.println(chair);
+            for (Chair<?> chair : chairs) {
+                System.out.println(chair); // Mostrará el resultado del método toString()
             }
         }
     }
