@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class UserInterface {
     private Scanner scan = new Scanner(System.in);
 
-    public String welcome() {
+    public void welcome() {
         System.out.println("");
     }
 
@@ -37,7 +37,7 @@ public class UserInterface {
         System.out.println("T. Tandem");
         System.out.println("R. Sillas de ruedas");
         System.out.println("\n");
-        System.out.println("0. Regresar al menú principal");
+        System.out.println("x. Regresar al menú principal");
         System.out.println("\n");
     }
 }
