@@ -1,23 +1,11 @@
-package ui;
+package businessLogic;
 
-import data.Chair;
-import data.CatalogueChair;
-import data.PresidentialChair;
-import data.ManagerialChair;
-import data.SecretarialChair;
-import data.TandemChair;
-import data.Wheelchair;
-
+import data.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogueManager {
-    private List<Chair<?>> chairs; // Lista para almacenar todas las sillas
-
-    public CatalogueManager() {
-        this.chairs = new ArrayList<>();
-    }
-
+    private ArrayList<Chair> chairs;
     /**
      * Carga las sillas desde un archivo de texto.
      * El formato esperado es: referencia, tipo, precio, calificación, (atributos adicionales según el tipo)

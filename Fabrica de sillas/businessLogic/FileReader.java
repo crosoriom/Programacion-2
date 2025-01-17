@@ -1,4 +1,4 @@
-package ui;
+package businessLogic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
