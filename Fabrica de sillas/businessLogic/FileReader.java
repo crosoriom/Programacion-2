@@ -9,7 +9,7 @@ public class FileReader {
     public List<String[]> readFile(String filePath) throws IOException {
         List<String[]> data = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new java.io.FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new java.io.FileReader("sillas.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 // Ignorar líneas en blanco

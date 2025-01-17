@@ -6,7 +6,7 @@ public class UserInterface {
     private Scanner scan = new Scanner(System.in);
 
     public void welcome() {
-        System.out.println("");
+        System.out.println("¡Bienvenido a la Fábrica de Sillas!");
     }
 
     public void menu() {
@@ -39,5 +39,9 @@ public class UserInterface {
         System.out.println("\n");
         System.out.println("x. Regresar al menú principal");
         System.out.println("\n");
+    }
+
+    public void exitMessage() {
+        System.out.println("Gracias por usar la Fábrica de Sillas. ¡Hasta luego!");
     }
 }
