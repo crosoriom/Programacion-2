@@ -9,6 +9,11 @@ public class PresidentialChair extends CatalogueChair {
     }
 
     @Override
+    public String toString() {
+    	return "Presidencial --\t" + super.toString() + "Importada: " + imported;
+    }
+
+    @Override
     public String removeFromCatalogue() {
         if((isImported() && qualification < 3.5) || price > 400000)
             return "Remover";

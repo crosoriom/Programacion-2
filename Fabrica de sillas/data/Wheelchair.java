@@ -8,6 +8,11 @@ public class Wheelchair extends VarietyChair {
         this.traction = traction;
     }
 
+    @Override
+    public String toString() {
+    	return "Silla de ruedas --\t" + super.toString() + "Tracción: " + traction;
+    }
+
     public String getTraction() {
         return traction;
     }

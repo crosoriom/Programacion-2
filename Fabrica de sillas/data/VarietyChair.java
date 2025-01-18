@@ -10,6 +10,10 @@ public class VarietyChair implements Chair<VarietyChair> {
         this.price = price;
         this.qualification = qualification;
     }
+    @Override
+    public String toString() {
+	    return "Reference: " + reference + "Price=" + price + "Qualification: " + qualification;
+    }
 
     @Override
     public String getReference() {

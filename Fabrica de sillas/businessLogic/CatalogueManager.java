@@ -2,42 +2,34 @@ package businessLogic;
 
 import data.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CatalogueManager {
-    private ArrayList<Chair> chairs;
+    private ArrayList<CatalogueChair> presidentialChairs = new ArrayList<>();
+    private ArrayList<CatalogueChair> managerialChairs = new ArrayList<>();
+    private ArrayList<CatalogueChair> secretarialChairs = new ArrayList<>();
+    private ArrayList<Chair> catalogueChairs = new ArrayList<>();
+    private ArrayList<VarietyChair> tandemChairs = new ArrayList<>();
+    private ArrayList<VarietyChair> wheelChairs = new ArrayList<>();
+    private ArrayList<Chair> varietyChairs = new ArrayList<>();
+
+    public CatalogueManager(String fileName) {
+        loadChairs(fileName);
+    }
     /**
      * Carga las sillas desde un archivo de texto.
      * El formato esperado es: referencia, tipo, precio, calificación, (atributos adicionales según el tipo)
      */
     public void loadChairs(String filePath) {
-        FileReader fileReader = new FileReader();
-        try {
-            List<String[]> data = fileReader.readFile(filePath);
-            for (String[] row : data) {
-                Chair<?> chair = parseChair(row); // Procesar cada fila
-                if (chair != null) {
-                    chairs.add(chair); // Agregar la silla a la lista
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error al cargar las sillas: " + e.getMessage());
-        }
-    }
+        FileReader file = new FileReader(filePath);
+        ArrayList<String> lines = file.getLines();
+        for(String line : lines)
+            parseChair(line);
+        catalogueChairs.addAll(presidentialChairs);
+        catalogueChairs.addAll(managerialChairs);
+        catalogueChairs.addAll(secretarialChairs);
 
-    /**
-     * Obtiene todas las sillas de una categoría específica.
-     * @param category Nombre de la categoría (presidencial, gerencial, etc.)
-     * @return Lista de sillas que pertenecen a la categoría
-     */
-    public List<Chair<?>> getChairsByCategory(String category) {
-        List<Chair<?>> result = new ArrayList<>();
-        for (Chair<?> chair : chairs) {
-            if (chair.getClass().getSimpleName().equalsIgnoreCase(category + "Chair")) {
-                result.add(chair);
-            }
-        }
-        return result;
+        varietyChairs.addAll(tandemChairs);
+        varietyChairs.addAll(wheelChairs);
     }
 
     /**
@@ -45,36 +37,65 @@ public class CatalogueManager {
      * @param row Array de strings que representa una fila del archivo
      * @return Objeto de tipo Chair correspondiente a la fila
      */
-    private Chair<?> parseChair(String[] row) {
-        try {
-            // Extraer los campos según el orden correcto
-            String reference = row[0].trim(); // La referencia es el primer campo
-            String type = row[1].trim().toLowerCase(); // El tipo es el segundo campo
-            float price = Float.parseFloat(row[2].trim()); // El precio es el tercer campo
-            float qualification = Float.parseFloat(row[3].trim()); // La calificación es el cuarto campo
-
-            // Procesar el tipo de silla y sus atributos adicionales
-            switch (type) {
-                case "presidencial": // Presidencial
-                    String imported = row[4].trim(); // Atributo adicional: si/no
-                    return new PresidentialChair(reference, price, qualification, imported);
-                case "gerencial": // Gerencial
-                    return new ManagerialChair(reference, price, qualification);
-                case "secretarial": // Secretarial
-                    return new SecretarialChair(reference, price, qualification);
-                case "tandem": // Tandem
-                    int seats = Integer.parseInt(row[4].trim()); // Atributo adicional: número de asientos
-                    return new TandemChair(reference, price, qualification, seats);
-                case "ruedas": // Wheelchair
-                    String traction = row[4].trim(); // Atributo adicional: tracción manual/automática
-                    return new Wheelchair(reference, price, qualification, traction);
-                default:
-                    System.err.println("Tipo de silla desconocido: " + type);
-                    return null;
-            }
-        } catch (Exception e) {
-            System.err.println("Error al parsear la fila: " + String.join(", ", row) + " - " + e.getMessage());
-            return null;
+    private void parseChair(String rawLine) {
+        String[] arguments = rawLine.split(",");
+        // Seleccionar el tipo de silla
+        String type = arguments[1].toLowerCase().trim();
+        // Procesar el tipo de silla y sus atributos adicionales
+        switch (type) {
+        case "presidencial":
+            CatalogueChair chairP = new PresidentialChair(arguments[0], Float.parseFloat(arguments[2]), Float.parseFloat(arguments[3]), arguments[4]);
+            presidentialChairs.add(chairP);
+            break;
+        case "gerencial":
+            CatalogueChair chairG = new ManagerialChair(arguments[0], Float.parseFloat(arguments[2]), Float.parseFloat(arguments[3]));
+            managerialChairs.add(chairG);
+            break;
+        case "secretarial":
+            CatalogueChair chairS = new SecretarialChair(arguments[0], Float.parseFloat(arguments[2]), Float.parseFloat(arguments[3]));
+            secretarialChairs.add(chairS);
+            break;
+        case "tandem":
+            VarietyChair chairI = new TandemChair(arguments[0], Float.parseFloat(arguments[2]), Float.parseFloat(arguments[3]), Integer.parseInt(arguments[4]));
+            tandemChairs.add(chairI);
+            break;
+        case "wheel":
+            VarietyChair chairW = new Wheelchair(arguments[0], Float.parseFloat(arguments[2]), Float.parseFloat(arguments[3]), arguments[4]);
+            wheelChairs.add(chairW);
+            break;
+        default:
+            System.err.println("Tipo de silla desconocido: " + type);
+            break;
+        }
+    }
+    /**
+     * Obtiene todas las sillas de una categoría específica.
+     * @param category Nombre de la categoría (presidencial, gerencial, etc.)
+     * @return Lista de sillas que pertenecen a la categoría
+     */
+    public void getChairsByCategory(String category) {
+        switch (category) {
+        case "catalogue":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "variety":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "presidential":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "managerial":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "secretarial":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "tandem":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
+        case "wheel":
+            for(Chair chair : catalogueChairs) 
+                System.out.println(chair.toString());
         }
     }
 }

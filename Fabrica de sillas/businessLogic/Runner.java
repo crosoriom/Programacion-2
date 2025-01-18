@@ -1,12 +1,16 @@
 package businessLogic;
 
+import data.CatalogueChair;
 import ui.UserInterface;
 
 public class Runner {
     public static void main(String[] args) {
         UserInterface userInterface = new UserInterface();
-        //CatalogueManager catalogue = new CatalogueManager();
+        CatalogueManager catalogue;
         int option = 0;
+
+        String file = userInterface.welcome();
+        catalogue = new CatalogueManager(file);
 
         do {
             userInterface.menu();
@@ -14,13 +18,14 @@ public class Runner {
 
             switch(option) {
             case 1:
-                showCategoryMenu();
+                showCategoryMenu(catalogue);
                 break;
             case 2:
                 //rotación de catálogo
                 break;
             case 3:
-                //listar sillas
+                catalogue.getChairsByCategory("catalogue");
+                catalogue.getChairsByCategory("variety");
                 break;
             default:
                 userInterface.wrongOption();
@@ -29,28 +34,32 @@ public class Runner {
         } while(option != 4);
     }
 
-    public static void showCategoryMenu() {
+    public static void showCategoryMenu(CatalogueManager catalogue) {
         UserInterface userInterface = new UserInterface();
         String option = "";
 
         do {
             userInterface.categoryMenu();
-            System.out.println(option);
             option = userInterface.readOption().trim().toLowerCase();
             switch(option) {
                 case "p":
-                    //mostrar presidenciales
+                    catalogue.getChairsByCategory("presidential");
                     break;
                 case "g":
+                    catalogue.getChairsByCategory("managerial");
                     break;
                 case "s":
+                    catalogue.getChairsByCategory("secretarial");
                     break;
                 case "t":
+                    catalogue.getChairsByCategory("tandem");
                     break;
                 case "r":
+                    catalogue.getChairsByCategory("wheel");
                     break;
                 default:
                     userInterface.wrongOption();
+                    break;
             }
         } while(!option.equals("x"));
     }

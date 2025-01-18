@@ -14,6 +14,11 @@ public abstract class CatalogueChair implements Chair<CatalogueChair> {
     public abstract String removeFromCatalogue();
 
     @Override
+    public String toString() {
+	    return "Reference: " + reference + "Price=" + price + "Qualification: " + qualification;
+    }
+
+    @Override
     public String getReference() {
         return reference;
     }

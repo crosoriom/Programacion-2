@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class UserInterface {
     private Scanner scan = new Scanner(System.in);
 
-    public void welcome() {
-        System.out.println("");
+    public String welcome() {
+        System.out.println("Por favor ingrese el nombre del archivo del catálogo.");
+        return scan.next();
     }
 
     public void menu() {

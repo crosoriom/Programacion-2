@@ -6,6 +6,10 @@ public class SecretarialChair extends CatalogueChair {
     }
 
     @Override
+    public String toString() {
+    	return "Secretarial --\t" + super.toString();
+    }
+    @Override
     public String removeFromCatalogue() {
         if(qualification < 3 || price > 200000)
             return "Remover";

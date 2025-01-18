@@ -8,6 +8,11 @@ public class TandemChair extends VarietyChair {
         this.seats = seats;
     }
 
+    @Override
+    public String toString() {
+    	return "Tandem --\t" + super.toString() + "Número de puestos:" + seats;
+    }
+
     public int getSeats() {
         return seats;
     }
