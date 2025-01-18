@@ -7,7 +7,7 @@ public class CatalogueManager {
     private ArrayList<CatalogueChair> presidentialChairs = new ArrayList<>();
     private ArrayList<CatalogueChair> managerialChairs = new ArrayList<>();
     private ArrayList<CatalogueChair> secretarialChairs = new ArrayList<>();
-    private ArrayList<Chair> catalogueChairs = new ArrayList<>();
+    private ArrayList<CatalogueChair> catalogueChairs = new ArrayList<>();
     private ArrayList<VarietyChair> tandemChairs = new ArrayList<>();
     private ArrayList<VarietyChair> wheelChairs = new ArrayList<>();
     private ArrayList<Chair> varietyChairs = new ArrayList<>();
@@ -76,26 +76,31 @@ public class CatalogueManager {
     public void getChairsByCategory(String category) {
         switch (category) {
         case "catalogue":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairC : catalogueChairs) 
+                System.out.println(chairC.toString());
         case "variety":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairV : varietyChairs) 
+                System.out.println(chairV.toString());
         case "presidential":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairP : presidentialChairs) 
+                System.out.println(chairP.toString());
         case "managerial":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairM : managerialChairs) 
+                System.out.println(chairM.toString());
         case "secretarial":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairS : secretarialChairs) 
+                System.out.println(chairS.toString());
         case "tandem":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairT : tandemChairs) 
+                System.out.println(chairT.toString());
         case "wheel":
-            for(Chair chair : catalogueChairs) 
-                System.out.println(chair.toString());
+            for(Chair chairW : wheelChairs) 
+                System.out.println(chairW.toString());
         }
+    }
+
+    public void catalogueRotation() {
+        for(CatalogueChair chair : catalogueChairs)
+            System.out.println(chair.toString() + "\t" + chair.removeFromCatalogue());
     }
 }

@@ -21,7 +21,7 @@ public class Runner {
                 showCategoryMenu(catalogue);
                 break;
             case 2:
-                //rotación de catálogo
+                catalogue.catalogueRotation();
                 break;
             case 3:
                 catalogue.getChairsByCategory("catalogue");
