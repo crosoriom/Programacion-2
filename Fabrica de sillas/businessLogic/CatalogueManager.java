@@ -22,6 +22,7 @@ public class CatalogueManager {
     public void loadChairs(String filePath) {
         FileReader file = new FileReader(filePath);
         ArrayList<String> lines = file.getLines();
+
         for(String line : lines)
             parseChair(line);
         catalogueChairs.addAll(presidentialChairs);

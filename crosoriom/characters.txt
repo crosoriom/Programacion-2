@@ -1,0 +1,7 @@
+J3, support, 20, 20
+J2, warrior, 20, 11
+J7, support, 1, 0
+J5, support, 5, 80
+J6, warrior, 0, 10
+J4, warrior, 200, 400
+J1, wizard, 1, 100
