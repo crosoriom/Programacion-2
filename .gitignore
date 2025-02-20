@@ -2,4 +2,7 @@ OOPCourse/
 AntiqueShop/
 AntiqueShopNH/
 BattleShip/
+Fabrica de sillas/
+crosoriom/
+include_directories(/usr/local/include)
 *.class
