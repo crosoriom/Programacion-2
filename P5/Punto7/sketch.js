@@ -1,5 +1,6 @@
 let mouseDistance = 50;
 let squareSize = 10;
+let offset = 3;
 let blocks = [];
 
 function createBlocks(rows, columns) {
