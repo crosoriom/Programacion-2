@@ -4,5 +4,6 @@ AntiqueShopNH/
 BattleShip/
 Fabrica de sillas/
 crosoriom/
+P5/
 include_directories(/usr/local/include)
 *.class
