@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Juego</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="pantalla-inicial" class="pantalla">
+            <h1>Mi Juego</h1>
+            <div class="botones">
+                <button id="btn-jugar" class="btn">Jugar</button>
+                <button id="btn-instrucciones" class="btn">Instrucciones</button>
+                <button id="btn-puntajes" class="btn">Mejores Puntajes</button>
+            </div>
+        </div>
+
+        <div id="pantalla-juego" class="pantalla oculto">
+            <h2>Juego</h2>
+            <p>Aquí va el contenido del juego...</p>
+            <button class="btn btn-volver">Volver</button>
+        </div>
+
+        <div id="pantalla-instrucciones" class="pantalla oculto">
+            <h2>Instrucciones</h2>
+            <p>Estas son las instrucciones del juego:</p>
+            <ul>
+                <li>Instrucción 1</li>
+                <li>Instrucción 2</li>
+                <li>Instrucción 3</li>
+            </ul>
+            <button class="btn btn-volver">Volver</button>
+        </div>
+
+        <div id="pantalla-puntajes" class="pantalla oculto">
+            <h2>Mejores Puntajes</h2>
+            <ol id="lista-puntajes">
+                <li>Jugador 1: 1000 pts</li>
+                <li>Jugador 2: 850 pts</li>
+                <li>Jugador 3: 720 pts</li>
+            </ol>
+            <button class="btn btn-volver">Volver</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
