@@ -4,23 +4,20 @@ class Game {
         this.board = [];
         this.selectedCards = [];
         this.mode = mode;
+        this.quadrille = NULL;
     }
 
     generateDeck() {
-        const shapes = ["diamond", "circle", "square"];
+        const shapes = ["triangle", "circle", "square"];
         const colors = ["red", "green", "blue"];
         const numbers = [1, 2, 3];
         const shadings = ["solid", "stripped", "open"];
 
-        for(let shape in shapes) {
-            for(let color in colors) {
-                for(let number in numbers) {
-                    for(let shade in shadings) {
+        for(let shape in shapes)
+            for(let color in colors)
+                for(let number in numbers)
+                    for(let shade in shadings)
                         this.deck.push(new Card(shape, color, number, shade));
-                    }
-                }
-            }
-        }
     }
 
     shuffleDeck() {
@@ -31,6 +28,12 @@ class Game {
     }
 
     dealCards() {
+        do {
+            this.board = this.deck.splice(0, 12);
+        } while(!isValidSet(this.board));
+
+        this.quadrille = createQuadrille(4, 3, (cell) => {
+        })
     }
 
     isValidSet(cards) {
