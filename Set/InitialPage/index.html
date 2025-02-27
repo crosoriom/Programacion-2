@@ -17,30 +17,86 @@
             </div>
         </div>
 
-        <div id="pantalla-juego" class="pantalla oculto">
-            <h2>Juego</h2>
-            <p>Aquí va el contenido del juego...</p>
+        <div id="pantalla-selector-modo" class="pantalla oculto">
+            <h2>Selecciona un Modo de Juego</h2>
+            <div class="botones">
+                <button id="btn-modo-clasico" class="btn btn-modo">Clásico</button>
+                <button id="btn-modo-tiempo" class="btn btn-modo">Por Tiempo</button>
+                <button id="btn-modo-zen" class="btn btn-modo">Zen</button>
+            </div>
             <button class="btn btn-volver">Volver</button>
+        </div>
+
+        <div id="pantalla-juego" class="pantalla oculto">
+            <h2 id="titulo-modo-juego">Modo de Juego</h2>
+            <div id="contenido-juego">
+                <p>Contenido del juego aquí...</p>
+            </div>
+            <button class="btn btn-volver-selector">Volver a Modos</button>
         </div>
 
         <div id="pantalla-instrucciones" class="pantalla oculto">
             <h2>Instrucciones</h2>
-            <p>Estas son las instrucciones del juego:</p>
-            <ul>
-                <li>Instrucción 1</li>
-                <li>Instrucción 2</li>
-                <li>Instrucción 3</li>
-            </ul>
+            <div class="instrucciones-contenido">
+                <h3>Objetivo del Juego</h3>
+                <p>El objetivo es conseguir la mayor puntuación posible según el modo de juego seleccionado.</p>
+                
+                <h3>Modos de Juego</h3>
+                <ul>
+                    <li><strong>Clásico:</strong> Juega sin límite de tiempo hasta completar todos los niveles.</li>
+                    <li><strong>Por Tiempo:</strong> Consigue la mayor puntuación posible en 3 minutos.</li>
+                    <li><strong>Zen:</strong> Modo relajado sin presión, ideal para principiantes.</li>
+                </ul>
+                
+                <h3>Controles</h3>
+                <ul>
+                    <li>Utiliza las teclas de dirección para moverte.</li>
+                    <li>Presiona Espacio para acciones especiales.</li>
+                    <li>Presiona P para pausar el juego.</li>
+                </ul>
+                
+                <h3>Consejos</h3>
+                <p>Practica primero en el modo Zen para familiarizarte con los controles antes de intentar los otros modos.</p>
+            </div>
             <button class="btn btn-volver">Volver</button>
         </div>
 
         <div id="pantalla-puntajes" class="pantalla oculto">
             <h2>Mejores Puntajes</h2>
-            <ol id="lista-puntajes">
-                <li>Jugador 1: 1000 pts</li>
-                <li>Jugador 2: 850 pts</li>
-                <li>Jugador 3: 720 pts</li>
-            </ol>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-modo="clasico">Clásico</button>
+                <button class="tab-btn" data-modo="tiempo">Por Tiempo</button>
+                <button class="tab-btn" data-modo="zen">Zen</button>
+            </div>
+            
+            <div class="tab-content active" id="puntajes-clasico">
+                <h3>Modo Clásico</h3>
+                <ol class="lista-puntajes">
+                    <li>Jugador 1: 1000 pts</li>
+                    <li>Jugador 2: 850 pts</li>
+                    <li>Jugador 3: 720 pts</li>
+                </ol>
+            </div>
+            
+            <div class="tab-content" id="puntajes-tiempo">
+                <h3>Modo Por Tiempo</h3>
+                <ol class="lista-puntajes">
+                    <li>Jugador A: 750 pts</li>
+                    <li>Jugador B: 680 pts</li>
+                    <li>Jugador C: 590 pts</li>
+                </ol>
+            </div>
+            
+            <div class="tab-content" id="puntajes-zen">
+                <h3>Modo Zen</h3>
+                <ol class="lista-puntajes">
+                    <li>Jugador X: 1200 pts</li>
+                    <li>Jugador Y: 980 pts</li>
+                    <li>Jugador Z: 870 pts</li>
+                </ol>
+            </div>
+            
             <button class="btn btn-volver">Volver</button>
         </div>
     </div>

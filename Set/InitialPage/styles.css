@@ -127,14 +127,78 @@
     width: 80%;
     margin: 20px auto;
   }
-
-  .ocultor {
-    color: red;
-    background-color: #f321b4;
+  
+  /* Añadir después de #lista-puntajes */
+  
+  /* Estilos para el selector de modo de juego */
+  .btn-modo {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    padding: 20px;
+    transition: all 0.3s ease;
   }
-
-  .visible {
-    color: green;
+  
+  #btn-modo-clasico {
+    background-color: #4caf50;
+  }
+  
+  #btn-modo-tiempo {
+    background-color: #ff9800;
+  }
+  
+  #btn-modo-zen {
+    background-color: #2196f3;
+  }
+  
+  /* Estilos para las instrucciones */
+  .instrucciones-contenido {
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .instrucciones-contenido h3 {
+    margin: 20px 0 10px;
+    color: #ffd700;
+  }
+  
+  /* Estilos para los tabs de puntajes */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .tab-btn {
+    padding: 10px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .tab-btn.active {
+    background-color: #ffd700;
+    color: #333;
+  }
+  
+  .tab-content {
+    display: none;
+    width: 100%;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .btn-volver-selector {
+    margin-top: 20px;
+    background-color: #555;
   }
   
   /* Responsive */
