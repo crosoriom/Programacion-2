@@ -1,54 +1,33 @@
 class Game {
     constructor() {
-        this.deck = [];
+        this.deck = new Deck();
         this.board = [];
         this.selectedCards = [];
-        this.mode = mode;
-        this.quadrille = NULL;
+        this.quadrille = null;
     }
 
-    generateDeck() {
-        const shapes = ["triangle", "circle", "square"];
-        const colors = ["red", "green", "blue"];
-        const numbers = [1, 2, 3];
-        const shadings = ["solid", "stripped", "open"];
-
-        for(let shape in shapes)
-            for(let color in colors)
-                for(let number in numbers)
-                    for(let shade in shadings)
-                        this.deck.push(new Card(shape, color, number, shade));
+    startGame() {
+        this.deck.generateDeck();
+        this.deck.shuffleDeck();
     }
 
-    shuffleDeck() {
-        for(let i = this.deck.lenght - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.deck[i], this.deck[j] = this.deck[j], this.deck[i]];
-        }
-    }
-
-    dealCards() {
+    dealInitialCards() {
         do {
-            this.board = this.deck.splice(0, 12);
-        } while(!isValidSet(this.board));
+            this.board = this.deck.dealCards(12);
+        } while(!this.deck.hasValidSet(this.board) && this.deck.cards.length > 0);
 
         this.quadrille = createQuadrille(4, 3, (cell) => {
-        })
+            this.board[cell.index].display(cell);
+        });
     }
 
-    isValidSet(cards) {
-        const allSameOrDiferent = (attr) => {
-            const values = cards.map((c) => c[attr]);
-            return new Set(values).size === 1 || new Set(values).size === 3;
-        };
+    addCardsToBoard() {
+        if(this.deck.cards.length === 0) return;
 
-        return (
-            allSameOrDiferent("shape") &&
-            allSameOrDiferent("color") &&
-            allSameOrDiferent("number") &&
-            allSameOrDiferent("shadding")
-        );
+        let newCards;
+        do {
+            newCards = this.deck.dealCards(3);
+            this.board.push(...newCards);
+        } while(!this.deck.hasValidSet(this.board) && this.deck.cards.length > 0);
     }
-
-
 }
