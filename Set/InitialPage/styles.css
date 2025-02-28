@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  
+  .pantalla {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .botones {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .btn {
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    background-color: #45a049;
+  }
+  
+  .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  #btn-jugar {
+    background-color: #4caf50;
+  }
+  
+  #btn-instrucciones {
+    background-color: #2196f3;
+  }
+  
+  #btn-puntajes {
+    background-color: #f44336;
+  }
+  
+  .btn-volver {
+    margin-top: 20px;
+    background-color: #555;
+  }
+  
+  .oculto {
+    display: none;
+  }
+  
+  p,
+  li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  ul,
+  ol {
+    width: 80%;
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+  
+  #lista-puntajes {
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  /* Añadir después de #lista-puntajes */
+  
+  /* Estilos para el selector de modo de juego */
+  .btn-modo {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    padding: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  #btn-modo-clasico {
+    background-color: #4caf50;
+  }
+  
+  #btn-modo-tiempo {
+    background-color: #ff9800;
+  }
+  
+  #btn-modo-zen {
+    background-color: #2196f3;
+  }
+  
+  /* Estilos para las instrucciones */
+  .instrucciones-contenido {
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .instrucciones-contenido h3 {
+    margin: 20px 0 10px;
+    color: #ffd700;
+  }
+  
+  /* Estilos para los tabs de puntajes */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .tab-btn {
+    padding: 10px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .tab-btn.active {
+    background-color: #ffd700;
+    color: #333;
+  }
+  
+  .tab-content {
+    display: none;
+    width: 100%;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .btn-volver-selector {
+    margin-top: 20px;
+    background-color: #555;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    .btn {
+      padding: 12px 15px;
+      font-size: 1rem;
+    }
+  }
+  
+  
