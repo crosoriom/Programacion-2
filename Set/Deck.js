@@ -11,6 +11,7 @@ class Deck {
             shadings: ["solid", "stripped", "open"]
         };
 
+        // El bucle crea las 81 cartas que componen el juego
         for(let shape in attributes.shapes)
             for(let color in attributes.colors)
                 for(let number in attributes.numbers)

@@ -4,7 +4,7 @@ class Card {
         this.color = color;
         this.number = number;
         this.shading = shading;
-        this.selected = false;
+        this.highlighted = false;
     }
 
     display(cell) {
@@ -13,10 +13,8 @@ class Card {
         translate(x, y);
         noStroke();
 
-        if(this.selected) {
-            stroke(255,255,0);
-            strokeWeight(4);
-            nofill();
+        if(this.highlighted) {
+            fill(128, 0, 128, 100);
             rectMode(CENTER);
             rect(0, 0, size * 0.9, size * 0.9);
         }
@@ -71,7 +69,7 @@ class Card {
         return points;
     }
 
-    setSelected(state) {
+    setHighlighted(state) {
         this.selected = state;
     }
 }

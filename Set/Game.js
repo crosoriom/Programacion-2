@@ -1,9 +1,8 @@
 class Game {
     constructor() {
         this.deck = new Deck();
-        this.board = [];
+        this.board = new Board();
         this.selectedCards = [];
-        this.quadrille = null;
     }
 
     startGame() {
@@ -16,10 +15,6 @@ class Game {
         do {
             this.board = this.deck.dealCards(12);
         } while(!this.deck.hasValidSet(this.board) && this.deck.cards.length > 0);
-
-        this.quadrille = createQuadrille(4, 3, (cell) => {
-            this.board[cell.index].display(cell);
-        });
     }
 
     addCardsToBoard() {
@@ -33,5 +28,15 @@ class Game {
             this.board.splice(-3);
             this.addCardsToBoard();
         }
+    }
+
+    handleClick(x, y) {
+        const cell = this.quadrille.getCell(x, y);
+        if(!cell) return;
+
+        const clickedCard = this.board.cards[cell.index];
+        if(this.selectedCards.includes(clickedCard)) return;
+        this.selectedCards.push(clickedCard);
+        this.board.highlightSet(this.selectedCards);
     }
 }
