@@ -45,9 +45,10 @@ class Deck {
     }
 
     hasValidSet(cards) {
-        for(let i = 0; i < cards.lenght; i++) {
-            for(let j = i + 1; j < cards.lenght; j++)
-                for(let k = j + 1; j < cards.lenght; k++)
+        const n = cards.lenght;
+        for(let i = 0; i < n - 2; i++) {
+            for(let j = i + 1; j < n - 1; j++)
+                for(let k = j + 1; j < n; k++)
                     return this.isValidSet([cards[i], cards[j], cards[k]]);
             return false;
         }

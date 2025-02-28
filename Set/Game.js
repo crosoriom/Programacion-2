@@ -9,6 +9,7 @@ class Game {
     startGame() {
         this.deck.generateDeck();
         this.deck.shuffleDeck();
+        this.dealInitialCards();
     }
 
     dealInitialCards() {
@@ -24,10 +25,13 @@ class Game {
     addCardsToBoard() {
         if(this.deck.cards.length === 0) return;
 
-        let newCards;
-        do {
-            newCards = this.deck.dealCards(3);
-            this.board.push(...newCards);
-        } while(!this.deck.hasValidSet(this.board) && this.deck.cards.length > 0);
+        const newCards = this.deck.dealCards(3);
+        this.board.push(...newCards);
+
+        if(!this.deck.hasValidSet(this.board)) {
+            this.deck.cards.push(...newCards);
+            this.board.splice(-3);
+            this.addCardsToBoard();
+        }
     }
 }

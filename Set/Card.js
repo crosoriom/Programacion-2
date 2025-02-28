@@ -4,6 +4,7 @@ class Card {
         this.color = color;
         this.number = number;
         this.shading = shading;
+        this.selected = false;
     }
 
     display(cell) {
@@ -11,6 +12,14 @@ class Card {
         push();
         translate(x, y);
         noStroke();
+
+        if(this.selected) {
+            stroke(255,255,0);
+            strokeWeight(4);
+            nofill();
+            rectMode(CENTER);
+            rect(0, 0, size * 0.9, size * 0.9);
+        }
 
         switch(this.shading) {
             case "solid":
@@ -28,11 +37,16 @@ class Card {
         points.forEach((point) => {
             switch(this.shape) {
                 case "square":
-                    this.drawSquare(point.x, point.y, size / 4);
+                    rectMode(CENTER);
+                    rect(x, y, size / 4, size / 4);
                 case "circle":
                     circle(point.x, point.y, size / 4);
                 case "triangle":
-                    this.drawTriangle(point.x, point.y, size / 4);
+                    triangle(
+                        x - size / 8, y + size / 8,
+                        x + size / 8, y + size / 8,
+                        x, y - size / 8
+                    );
             }
         });
 
@@ -57,16 +71,7 @@ class Card {
         return points;
     }
 
-    drawSquare(x, y, size) {
-        rectMode(CENTER);
-        rect(x, y, size, size);
-    }
-
-    drawTriangle(x, y, size) {
-        triangle(
-            x - size / 2, y + size / 2,
-            x + size / 2, y + size / 2,
-            x, y - size / 2
-        );
+    setSelected(state) {
+        this.selected = state;
     }
 }
