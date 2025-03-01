@@ -5,6 +5,6 @@ BattleShip/
 Fabrica de sillas/
 crosoriom/
 P5/
-Colecciones
+Colecciones/
 include_directories(/usr/local/include)
 *.class
