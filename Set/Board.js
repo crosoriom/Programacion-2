@@ -1,6 +1,6 @@
 class Board {
-    constructor() {
-        this.cards = [];
+    constructor(cards) {
+        this.cards = cards;
         this.quadrille = null;
         this.highlightedSet = [];
     }
@@ -23,5 +23,13 @@ class Board {
     clearHighLight() {
         this.highlightedSet.forEach(card => card.setHighlighted(false));
         this.highlightedSet = [];
+    }
+
+    addCards(cards) {
+        cards.forEach(card => this.cards.push(card));
+    }
+
+    removeCards(cards) {
+        cards.forEach(card => this.cards.pop(card));
     }
 }

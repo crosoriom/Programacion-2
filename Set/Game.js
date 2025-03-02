@@ -1,8 +1,9 @@
 class Game {
     constructor() {
         this.deck = new Deck();
-        this.board = new Board();
+        this.board = null;
         this.selectedCards = [];
+        this.setsFounds = 0;
     }
 
     startGame() {
@@ -13,19 +14,19 @@ class Game {
 
     dealInitialCards() {
         do {
-            this.board = this.deck.dealCards(12);
-        } while(!this.deck.hasValidSet(this.board) && this.deck.cards.length > 0);
+            this.board = new Board(this.deck.dealCards(12));
+        } while(!this.deck.hasValidSet(this.board.cards) && this.deck.cards.length > 0);
     }
 
     addCardsToBoard() {
         if(this.deck.cards.length === 0) return;
 
         const newCards = this.deck.dealCards(3);
-        this.board.push(...newCards);
+        this.board.addCards(newCards);
 
-        if(!this.deck.hasValidSet(this.board)) {
+        if(!this.deck.hasValidSet(this.board.cards)) {
             this.deck.cards.push(...newCards);
-            this.board.splice(-3);
+            this.board.removeCards(newCards);
             this.addCardsToBoard();
         }
     }
@@ -35,8 +36,27 @@ class Game {
         if(!cell) return;
 
         const clickedCard = this.board.cards[cell.index];
-        if(this.selectedCards.includes(clickedCard)) return;
-        this.selectedCards.push(clickedCard);
+        if(this.selectedCards.includes(clickedCard))
+            this.selectedCards.pop(clickedCard);
+        else
+            this.selectedCards.push(clickedCard);
         this.board.highlightSet(this.selectedCards);
+
+        if(this.selectedCards.length === 3) {
+            if(this.deck.isValidSet(this.selectedCards)) {
+                this.board.removeCards(this.selectedCards);
+                this.setsFounds++;
+                this.addCardsToBoard();
+            }
+            this.board.clearHighLight();
+            this.selectedCards = [];
+        }
+    }
+
+    hint() {
+        this.selectedCards = [];
+
+        let setHint = this.deck.findValidSet(this.board.cards);
+        this.board.highlightSet(setHint);
     }
 }

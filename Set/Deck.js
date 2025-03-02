@@ -45,6 +45,7 @@ class Deck {
         );
     }
 
+    // Recorre una lista de cartas para verificar si hay por lo menos un set
     hasValidSet(cards) {
         const n = cards.lenght;
         for(let i = 0; i < n - 2; i++) {
@@ -53,5 +54,15 @@ class Deck {
                     return this.isValidSet([cards[i], cards[j], cards[k]]);
             return false;
         }
+    }
+
+    // Recorre una lista de cartas para encontrar un set
+    findValidSet(cards) {
+        const n = cards.lenght;
+        for(let i = 0; i < n - 2; i++)
+            for(let j = i + 1; j < n - 1; j++)
+                for(let k = j + 1; j < n; k++)
+                    if(this.isValidSet([cards[i], cards[j], cards[k]]))
+                        return [cards[i], cards[j], cards[k]];
     }
 }
