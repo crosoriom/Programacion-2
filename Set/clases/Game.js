@@ -1,9 +1,10 @@
 class Game {
-    constructor() {
+    constructor(mode) {
         this.deck = new Deck();
         this.board = null;
         this.selectedCards = [];
         this.setsFounds = 0;
+        this.mode = mode;
     }
 
     startGame() {

@@ -21,9 +21,9 @@ class Deck {
 
     // Algoritmo de Fisher-Yates
     shuffleDeck() {
-        for(let i = this.cards.lenght - 1; i > 0; i--) {
+        for(let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [this.cards[i], this.cards[j] = this.cards[j], this.cards[i]];
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
     }
 
@@ -32,9 +32,11 @@ class Deck {
     }
 
     isValidSet(cards) {
+        if(cards.length !== 3) return false;
+
         const allSameOrDiferent = (attr) => {
             const values = cards.map((c) => c[attr]);
-            return new Set(values).size === 1 || new Set(values).size === 3;
+            return (new Set(values).size === 1) || (new Set(values).size === 3);
         };
 
         return (
@@ -48,12 +50,10 @@ class Deck {
     // Recorre una lista de cartas para verificar si hay por lo menos un set
     hasValidSet(cards) {
         const n = cards.lenght;
-        for(let i = 0; i < n - 2; i++) {
+        for(let i = 0; i < n - 2; i++)
             for(let j = i + 1; j < n - 1; j++)
                 for(let k = j + 1; j < n; k++)
                     return this.isValidSet([cards[i], cards[j], cards[k]]);
-            return false;
-        }
     }
 
     // Recorre una lista de cartas para encontrar un set
@@ -64,5 +64,6 @@ class Deck {
                 for(let k = j + 1; j < n; k++)
                     if(this.isValidSet([cards[i], cards[j], cards[k]]))
                         return [cards[i], cards[j], cards[k]];
+        return null;
     }
 }
