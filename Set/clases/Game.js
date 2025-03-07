@@ -3,14 +3,17 @@ class Game {
         this.deck = new Deck();
         this.board = null;
         this.selectedCards = [];
-        this.setsFounds = 0;
+        this.setsFound;
         this.mode = mode;
+        this.score;
     }
 
     startGame() {
         this.deck.generateDeck();
         this.deck.shuffleDeck();
         this.dealInitialCards();
+        this.score = 0;
+        this.setsFound = 0;
     }
 
     dealInitialCards() {
@@ -32,21 +35,30 @@ class Game {
         }
     }
 
-    handleClick(x, y) {
-        const cell = this.quadrille.getCell(x, y);
-        if(!cell) return;
+    display() {
+        background(240);
 
-        const clickedCard = this.board.cards[cell.index];
+        if(this.board) {
+            this.board.display();
+        }
+    }
+
+    handleClick() {
+        const cell = this.board.getCardAtPosition();
+        if(cell === null || cell === undefined) return;
+
+        const clickedCard = this.board.cards[cell];
         if(this.selectedCards.includes(clickedCard))
-            this.selectedCards.pop(clickedCard);
+            this.selectedCards = this.selectedCards.filter(card => card !== clickedCard);
         else
             this.selectedCards.push(clickedCard);
-        this.board.highlightSet(this.selectedCards);
 
+        const selectedCells = this.selectedCards.map(card => this.board.cards.indexOf[card]);
+        this.board.highlightSet(selectedCells);
         if(this.selectedCards.length === 3) {
             if(this.deck.isValidSet(this.selectedCards)) {
                 this.board.removeCards(this.selectedCards);
-                this.setsFounds++;
+                this.setsFound++;
                 this.addCardsToBoard();
             }
             this.board.clearHighLight();
@@ -56,8 +68,9 @@ class Game {
 
     hint() {
         this.selectedCards = [];
+        this.score = Math.max(0, this.score - 5);
 
-        let setHint = this.deck.findValidSet(this.board.cards);
-        this.board.highlightSet(setHint);
+        const setHint = this.deck.findValidSet(this.board.cards);
+        this.board.highlightSet(setHint[0]);
     }
 }

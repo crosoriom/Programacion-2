@@ -17,7 +17,7 @@ class Board {
             ));
         }
         
-        const baseX = 100, baseY = 100, cellSize = 100;
+        const baseX = 0, baseY = 0, cellSize = 100;
         for(let row = 0; row < this.quadrille.height; row++)
             for(let col = 0; col < this.quadrille.width; col++) {
                 let cell = this.quadrille.memory2D[row][col];
@@ -34,9 +34,9 @@ class Board {
             }
     }
 
-    highlightSet(cards) {
+    highlightSet(cells) {
         this.clearHighLight();
-        this.highlightedSet = cards;
+        this.highlightedSet = cells.map(cell => this.cards[cell]);
         this.highlightedSet.forEach(card => card.setHighlighted(true));
     }
 
@@ -55,15 +55,10 @@ class Board {
         this.quadrille = null;
     }
 
-    getCardAtPosition(x, y) {
-        const gridX = Math.floor((x - 100) / 100);
-        const gridY = Math.floor((y - 100) / 100);
+    getCardAtPosition() {
+        const row = this.quadrille.mouseRow();
+        const col = this.quadrille.mouseCol();
 
-        if(gridX >= 0 && gridX < 4 && gridY >= 0 && gridY < 3) {
-            const index = gridY * 4 + gridX;
-            if(index < this.cards.length)
-                return this.cards[index];
-        }
-        return null;
+        return this.quadrille.memory2D[row][col];
     }
 }
